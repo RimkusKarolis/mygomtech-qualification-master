@@ -40,11 +40,37 @@ const UsersManagement = () => {
           <List items={items}/>
         </Route>
         <Route path={Routes.Weak}>
-          <List items={items}/>
+           <List items={items.filter((item) => itemHasWeakPassword(item))}/>
         </Route>
         <Route path={Routes.Reused}>
           <List items={items.filter((item) => itemHasReusedPassword(item, items))}/>
         </Route>
+        <Route path={Routes.Old}>
+        
+         <List items={items.filter((item) => 
+              
+            {
+              let oldCount =0;
+              let date1: Date = new Date();
+                for(let i = 0; i < 1; i++)
+                {
+                  
+                  let date2: Date = new Date(item.createdAt);
+                  let timeInMilisec: number = date1.getTime() - date2.getTime();
+                  let daysBetweenDates: number = Math.ceil(timeInMilisec / (1000 * 60 * 60 * 24));
+
+
+                  
+                  if(daysBetweenDates> 30)
+                  {
+                    return item;
+                  }
+                  
+                }
+             
+            })}/>
+        </Route>
+        
       </Switch>
     </div>
   );
